@@ -22,6 +22,7 @@ formBtn.addEventListener("submit",(event)=>{
     obj.text = inp.value
     obj.line = false
     storage.push(obj)
+    inp.value = ''
     render(storage)
     localStorage.setItem("nameworks",JSON.stringify(storage))
 })
