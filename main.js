@@ -6,14 +6,20 @@ const comp = document.querySelector(".complete")
 const incomp = document.querySelector(".incomplete")
 
 let storage = JSON.parse(localStorage.getItem("nameworks")) || []
-let newStorage = []
-for(let j of storage){
-    if(Object.keys(j).length!=1){
-        newStorage.push(j)
-    }
-}
-storage = newStorage
+let newStorage
 
+function checkSpase(){
+    newStorage = []
+    for(let j of storage){
+        if(Object.keys(j).length!=1){
+            newStorage.push(j)
+        }
+    }
+    storage = newStorage
+
+}
+
+checkSpase()
 render(storage)
 
 formBtn.addEventListener("submit",(event)=>{
@@ -21,8 +27,8 @@ formBtn.addEventListener("submit",(event)=>{
     let obj = {}
     obj.text = inp.value
     obj.line = false
-    storage.push(obj)
     inp.value = ''
+    storage.push(obj)
     render(storage)
     localStorage.setItem("nameworks",JSON.stringify(storage))
 })
@@ -63,6 +69,7 @@ function render(lst){
         btn.addEventListener("click",()=>{
             delete j.text
             li.remove()
+            checkSpase()
             localStorage.setItem("nameworks",JSON.stringify(lst))
         })
     }
@@ -92,3 +99,4 @@ incomp.addEventListener("click",()=>{
     }
     render(newLst)
 })
+
